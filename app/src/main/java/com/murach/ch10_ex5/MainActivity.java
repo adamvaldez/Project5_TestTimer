@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity
 {
+    //Variable Declarations
     private TextView messageTextView;
     private Button pauseButton;
     private boolean pause;
@@ -21,11 +22,12 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         elapsedTime = 0;
+
+        //Linking the variables to Widgets
         messageTextView = (TextView) findViewById(R.id.messageTextView);
-
-
         pauseButton = (Button) findViewById(R.id.pauseButton);
 
+        //When pauseButton is clicked, it calls pauseTimer() to pause time
         pauseButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -34,11 +36,11 @@ public class MainActivity extends Activity
             }
         });
 
-
         pause = false;
         startTimer();
     }
 
+    //Starts the timer
     private void startTimer()
     {
         final long startMillis = System.currentTimeMillis();
@@ -60,7 +62,7 @@ public class MainActivity extends Activity
         timer.schedule(task, 0, 1000);
     }
 
-    /** These two methods are what you needed  **/
+    //When app is resumed, the timer continues from paused position
     @Override
     public void onResume()
     {
@@ -71,6 +73,7 @@ public class MainActivity extends Activity
         // elapsedTime += 1000 // here
     }
 
+    //When app is paused, it pauses the timer via the pauseTimer()
     @Override
     public void onPause()
     {
@@ -78,17 +81,19 @@ public class MainActivity extends Activity
         pauseTimer();
     }
 
+    //Changed the pause boolean to true
     private void pauseTimer()
     {
         pause = true;
     }
 
+    //Changed the pause boolean back to false
     private void resumeTimer()
     {
         pause = false;
     }
 
-
+    //Displays time on TextView
     private void updateView(final long elapsedMillis)
     {
         // UI changes need to be run on the UI thread
