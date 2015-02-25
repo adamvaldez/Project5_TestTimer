@@ -1,14 +1,15 @@
 package com.murach.ch10_ex5;
 
+/**
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.content.Context;
 import android.util.Log;
+ */
+import java.util.Timer;
+import java.util.TimerTask;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
@@ -24,20 +25,6 @@ public class MainActivity extends Activity
     private boolean pause;
     private long elapsedTime;
     private long innerTime;
-
-
-    /**
-     *
-     * This is commented out because the school blocks it and causes app to crash
-     *
-        //For the RSS FEED
-        private final String URL_STRING = "http://rss.cnn.com/rss/cnn_tech.rss";
-        private final String FILENAME = "news_feed.xml";
-        private Context context = null;
-        public MainActivity(Context context) {
-            this.context = context;
-        }
-    **/
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -95,12 +82,9 @@ public class MainActivity extends Activity
                     {
                         elapsedTime += 1000;
                         updateView(elapsedTime);
-                        /**
-                         * Causes app to crash, thanks to school
-                         *
-                         * downloadFile();
-                         *
-                         */
+
+                         //downloadFile();
+
                         innerTime = 0;
 
                     }
@@ -157,13 +141,18 @@ public class MainActivity extends Activity
             }
         });
     }
+
+
 /**
- *
- * Commented out because school blocks it and causes app to crash
- * Used to download RSS feed
+ * This function does not work, I don't know what Leticia is talking about
  *
     public void downloadFile()
     {
+        //For the RSS FEED
+        final String URL_STRING = "http://rss.cnn.com/rss/cnn_tech.rss";
+        final String FILENAME = "news_feed.xml";
+        Context context = null;
+
         try{
             // get the URL
             URL url = new URL(URL_STRING);
@@ -190,5 +179,5 @@ public class MainActivity extends Activity
             Log.e("News reader", e.toString());
         }
     }
-**/
+*/
 }
