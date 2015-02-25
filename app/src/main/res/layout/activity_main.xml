@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/messageTextView"
@@ -12,15 +12,25 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="17dp"
         android:layout_marginTop="14dp"
-        android:text="@string/hello_world"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:text="Times Downloaded: 0" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pause"
+        android:text="Stop"
         android:id="@+id/pauseButton"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/startButton"
+        android:layout_alignLeft="@+id/startButton"
+        android:layout_alignStart="@+id/startButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:id="@+id/startButton"
+        android:layout_marginTop="89dp"
+        android:layout_below="@+id/messageTextView"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

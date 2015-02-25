@@ -1,7 +1,14 @@
 package com.murach.ch10_ex5;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
@@ -13,8 +20,24 @@ public class MainActivity extends Activity
     //Variable Declarations
     private TextView messageTextView;
     private Button pauseButton;
+    private Button startButton;
     private boolean pause;
     private long elapsedTime;
+    private long innerTime;
+
+
+    /**
+     *
+     * This is commented out because the school blocks it and causes app to crash
+     *
+        //For the RSS FEED
+        private final String URL_STRING = "http://rss.cnn.com/rss/cnn_tech.rss";
+        private final String FILENAME = "news_feed.xml";
+        private Context context = null;
+        public MainActivity(Context context) {
+            this.context = context;
+        }
+    **/
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,10 +45,12 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         elapsedTime = 0;
+        innerTime = 0;
 
         //Linking the variables to Widgets
         messageTextView = (TextView) findViewById(R.id.messageTextView);
         pauseButton = (Button) findViewById(R.id.pauseButton);
+        startButton = (Button) findViewById(R.id.startButton);
 
         //When pauseButton is clicked, it calls pauseTimer() to pause time
         pauseButton.setOnClickListener(new View.OnClickListener()
@@ -34,6 +59,16 @@ public class MainActivity extends Activity
             {
                 pauseTimer();
             }
+        });
+
+        //When startButton is clicked, it calls the resumeTimer() to resume time
+        startButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                resumeTimer();
+            }
+
         });
 
         pause = false;
@@ -54,8 +89,21 @@ public class MainActivity extends Activity
 
                 if(!pause)
                 {
-                    elapsedTime += 1000;
-                    updateView(elapsedTime);
+                    innerTime += 1000;
+
+                    if(innerTime == 10000)
+                    {
+                        elapsedTime += 1000;
+                        updateView(elapsedTime);
+                        /**
+                         * Causes app to crash, thanks to school
+                         *
+                         * downloadFile();
+                         *
+                         */
+                        innerTime = 0;
+
+                    }
                 }
             }
         };
@@ -105,8 +153,42 @@ public class MainActivity extends Activity
             @Override
             public void run()
             {
-                messageTextView.setText("Seconds: " + elapsedSeconds);
+                messageTextView.setText("Times Downloaded: " + elapsedSeconds);
             }
         });
     }
+/**
+ *
+ * Commented out because school blocks it and causes app to crash
+ * Used to download RSS feed
+ *
+    public void downloadFile()
+    {
+        try{
+            // get the URL
+            URL url = new URL(URL_STRING);
+
+            // get the input stream
+            InputStream in = url.openStream();
+
+            // get the output stream
+            FileOutputStream out =
+                    context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+
+            // read input and write output
+            byte[] buffer = new byte[1024];
+            int bytesRead = in.read(buffer);
+            while (bytesRead != -1)
+            {
+                out.write(buffer, 0, bytesRead);
+                bytesRead = in.read(buffer);
+            }
+            out.close();
+            in.close();
+        }
+        catch (IOException e) {
+            Log.e("News reader", e.toString());
+        }
+    }
+**/
 }
